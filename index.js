@@ -1,7 +1,12 @@
+// To connect via mobile = ip:port
+
 const app = require('express')();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-const port = process.env.PORT || 3000;
+// Same as above - first class function notation
+// const exportedSocketModule = require('socket.io');
+// const io = exportedSocketModule(server);
+const port = process.env.PORT || 3001;
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
@@ -10,4 +15,6 @@ io.on('connection', function(socket){
     io.emit('chat message', msg);
   });
 });
-server.listen(port);
+server.listen(port, function(){
+  console.log("Listening on:" + port);
+});
